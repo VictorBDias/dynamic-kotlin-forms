@@ -40,6 +40,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.firebase.crashlytics.buildtools)
     val room_version = "2.6.1"
     ksp("androidx.room:room-compiler:$room_version")
 
@@ -80,4 +81,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.5.0")
+
+    // Json
+    implementation("com.google.code.gson:gson:2.10.1")
+
 }
