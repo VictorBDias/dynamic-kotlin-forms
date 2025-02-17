@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -19,8 +21,11 @@ fun FormEntriesScreen(
     val formEntries by viewModel.getFormEntries(formId).collectAsState(initial = emptyList())
 
     Scaffold(
-        topBar = {
-            TopAppBar(title = { Text("Form Entries") })
+        topBar = { TopAppBar(title = { Text("Form Entries") }) },
+        floatingActionButton = {
+            FloatingActionButton(onClick = { viewModel.addFormEntry(formId) }) {
+                Icon(Icons.Default.Add, contentDescription = "Add Form Entry")
+            }
         }
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {

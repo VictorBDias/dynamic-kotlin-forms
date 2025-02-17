@@ -1,7 +1,5 @@
 package com.cloud_evalutaion.ui.forms
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import com.cloud_evalutaion.data.local.entities.FormEntity
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -27,11 +25,6 @@ fun FormsScreen(
 
     Scaffold(
         topBar = { TopAppBar(title = { Text("Forms") }) },
-        floatingActionButton = {
-            FloatingActionButton(onClick = { viewModel.addForm("New Form") }) {
-                Icon(Icons.Default.Add, contentDescription = "Add Form")
-            }
-        }
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
