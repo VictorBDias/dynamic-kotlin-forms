@@ -8,6 +8,7 @@ import androidx.room.TypeConverters
 import com.cloud_evalutaion.data.local.dao.FieldDao
 import com.cloud_evalutaion.data.local.dao.FormDao
 import com.cloud_evalutaion.data.local.dao.FormEntryDao
+import com.cloud_evalutaion.data.local.dao.SectionDao
 import com.cloud_evalutaion.data.local.entities.FieldEntity
 import com.cloud_evalutaion.data.local.entities.FormEntity
 import com.cloud_evalutaion.data.local.entities.FormEntryEntity
@@ -18,6 +19,7 @@ import com.cloud_evalutaion.data.local.entities.FormEntryEntity
 abstract class AppDatabase : RoomDatabase() {
     abstract fun formDao(): FormDao
     abstract fun fieldDao(): FieldDao
+    abstract fun sectionDao(): SectionDao
     abstract fun formEntryDao(): FormEntryDao
 
     companion object {

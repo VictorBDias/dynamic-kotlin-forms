@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cloud_evalutaion.data.local.entities.FieldEntity
 import com.cloud_evalutaion.data.local.entities.FormEntity
+import com.cloud_evalutaion.data.local.entities.SectionEntity
 import com.cloud_evalutaion.data.repository.FormRepository
 import com.cloud_evalutaion.ui.model.Form
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken
@@ -70,12 +71,27 @@ class FormsViewModel @Inject constructor(
                                 label = field.label,
                                 name = field.name,
                                 type = field.type,
-                                required = field.required,
+                                required = field.required ?: false,
                                 options = field.options?.joinToString(",") { it.value },
                                 index = index,
                                 formId = formEntity.id
                             )
                             repository.addField(fieldEntity)
+                        }
+
+                        if (formJson.sections != null) {
+                            for (section in formJson.sections) {
+                                val sectionEntity = SectionEntity(
+                                    id = UUID.randomUUID().toString(),
+                                    title = section.title,
+                                    from = section.from,
+                                    to = section.to,
+                                    index = section.index,
+                                    uuid = section.uuid,
+                                    formId = formEntity.id
+                                )
+                                repository.addSection(sectionEntity)
+                            }
                         }
                     }
                 } catch (e: Exception) {
@@ -84,4 +100,22 @@ class FormsViewModel @Inject constructor(
             }
         }
     }
+
+
+    fun logForms() {
+    viewModelScope.launch {
+        val formList = repository.allForms.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Lazily,
+            initialValue = emptyList()
+        ).value
+
+        if (formList.isEmpty()) {
+            println("📢 No forms found in the database!")
+        } else {
+            println("✅ Forms in Room DB:")
+            formList.forEach { println("📝 ${it.title}") }
+        }
+    }
+}
 }

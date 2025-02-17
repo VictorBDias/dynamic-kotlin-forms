@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.cloud_evalutaion.data.local.dao.FieldDao
 import com.cloud_evalutaion.data.local.dao.FormDao
 import com.cloud_evalutaion.data.local.dao.FormEntryDao
+import com.cloud_evalutaion.data.local.dao.SectionDao
 import com.cloud_evalutaion.data.local.database.AppDatabase
 import com.cloud_evalutaion.data.repository.FormRepository
 import dagger.Module
@@ -49,7 +50,17 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideFormRepository(formDao: FormDao): FormRepository {
-        return FormRepository(formDao)
+    fun provideSectionDao(database: AppDatabase): SectionDao {
+        return database.sectionDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFormRepository(
+        formDao: FormDao,
+        fieldDao: FieldDao,
+        sectionDao: SectionDao
+    ): FormRepository {
+        return FormRepository(formDao, fieldDao, sectionDao) // ✅ Pass all parameters
     }
 }
