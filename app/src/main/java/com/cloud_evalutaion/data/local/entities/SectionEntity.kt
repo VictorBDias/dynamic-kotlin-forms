@@ -16,6 +16,7 @@ import java.util.UUID
         onDelete = ForeignKey.CASCADE
     )]
 )
+
 data class SectionEntity(
     @PrimaryKey val id: String = UUID.randomUUID().toString(),
     val title: String,

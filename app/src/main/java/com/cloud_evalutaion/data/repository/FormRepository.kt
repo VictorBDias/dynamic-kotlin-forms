@@ -31,7 +31,7 @@ class FormRepository @Inject constructor(
     suspend fun addSection(section: SectionEntity) {
         sectionDao.addSection(section)
     }
-    
+
     suspend fun formExists(title: String): Boolean {
         return formDao.getFormByTitle(title) != null
     }

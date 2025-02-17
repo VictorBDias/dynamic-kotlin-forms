@@ -95,6 +95,7 @@ class FormsViewModel @Inject constructor(
                         }
                     }
                 } catch (e: Exception) {
+                    println("📢 Error loading JSON")
                     e.printStackTrace()
                 }
             }
