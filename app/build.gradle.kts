@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.hilt.android)
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -38,6 +38,9 @@ android {
 }
 
 dependencies {
+    val room_version = "2.6.1"
+    ksp("androidx.room:room-compiler:$room_version")
+
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -47,7 +50,7 @@ dependencies {
 
     // Room (Database)
     implementation("androidx.room:room-runtime:2.5.0")
-    kapt("androidx.room:room-compiler:2.5.0")
+    ksp("androidx.room:room-compiler:2.5.0")
     implementation("androidx.room:room-ktx:2.5.0")
 
     // Lifecycle (ViewModel & LiveData)
@@ -64,7 +67,7 @@ dependencies {
 
     // Dependency Injection (Hilt)
     implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-compiler:2.48") // Fixed compiler dependency
+    ksp("com.google.dagger:hilt-compiler:2.48") // Fixed compiler dependency
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     // Kotlin Coroutines
