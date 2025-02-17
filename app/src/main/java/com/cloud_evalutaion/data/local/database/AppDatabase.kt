@@ -1,7 +1,18 @@
 package com.cloud_evalutaion.data.local.database
 
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.cloud_evalutaion.data.local.dao.FormDao
+import com.cloud_evalutaion.data.local.entities.FieldEntity
+import com.cloud_evalutaion.data.local.entities.FormEntity
+import com.cloud_evalutaion.data.local.entities.FormEntryEntity
+
+
 @Database(entities = [FormEntity::class, FieldEntity::class, FormEntryEntity::class], version = 1)
-@TypeConverters(DateConverter::class)  // To handle Date type
+@TypeConverters(DateConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun formDao(): FormDao
 
