@@ -7,7 +7,9 @@ import com.cloud_evalutaion.data.local.dao.FormDao
 import com.cloud_evalutaion.data.local.dao.FormEntryDao
 import com.cloud_evalutaion.data.local.dao.SectionDao
 import com.cloud_evalutaion.data.local.database.AppDatabase
+import com.cloud_evalutaion.data.repository.FieldRepository
 import com.cloud_evalutaion.data.repository.FormRepository
+import com.cloud_evalutaion.data.repository.SectionRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,14 +46,14 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideFormEntryDao(database: AppDatabase): FormEntryDao {
-        return database.formEntryDao()
+    fun provideSectionDao(database: AppDatabase): SectionDao {
+        return database.sectionDao()
     }
 
     @Provides
     @Singleton
-    fun provideSectionDao(database: AppDatabase): SectionDao {
-        return database.sectionDao()
+    fun provideFormEntryDao(database: AppDatabase): FormEntryDao {
+        return database.formEntryDao()
     }
 
     @Provides
@@ -62,5 +64,17 @@ object AppModule {
         sectionDao: SectionDao
     ): FormRepository {
         return FormRepository(formDao, fieldDao, sectionDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFieldRepository(fieldDao: FieldDao): FieldRepository {
+        return FieldRepository(fieldDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSectionRepository(sectionDao: SectionDao): SectionRepository {
+        return SectionRepository(sectionDao)
     }
 }
