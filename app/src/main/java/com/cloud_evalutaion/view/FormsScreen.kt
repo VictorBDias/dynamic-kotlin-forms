@@ -1,4 +1,4 @@
-package com.cloud_evalutaion.ui.forms
+package com.cloud_evalutaion.view
 
 import com.cloud_evalutaion.data.local.entities.FormEntity
 import androidx.compose.foundation.clickable
@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.cloud_evalutaion.ui.viewmodel.FormsViewModel
+import com.cloud_evalutaion.viewmodel.FormsViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 

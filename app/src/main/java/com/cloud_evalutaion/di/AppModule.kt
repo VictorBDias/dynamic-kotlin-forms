@@ -61,6 +61,6 @@ object AppModule {
         fieldDao: FieldDao,
         sectionDao: SectionDao
     ): FormRepository {
-        return FormRepository(formDao, fieldDao, sectionDao) // ✅ Pass all parameters
+        return FormRepository(formDao, fieldDao, sectionDao)
     }
 }

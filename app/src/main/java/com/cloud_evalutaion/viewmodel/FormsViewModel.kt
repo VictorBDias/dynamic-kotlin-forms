@@ -1,4 +1,4 @@
-package com.cloud_evalutaion.ui.viewmodel
+package com.cloud_evalutaion.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
@@ -7,7 +7,7 @@ import com.cloud_evalutaion.data.local.entities.FieldEntity
 import com.cloud_evalutaion.data.local.entities.FormEntity
 import com.cloud_evalutaion.data.local.entities.SectionEntity
 import com.cloud_evalutaion.data.repository.FormRepository
-import com.cloud_evalutaion.ui.model.Form
+import com.cloud_evalutaion.model.Form
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted

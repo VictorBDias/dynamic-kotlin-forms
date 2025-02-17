@@ -1,4 +1,4 @@
-package com.cloud_evalutaion.ui.model
+package com.cloud_evalutaion.model
 
 data class FieldOption(
     val label: String,

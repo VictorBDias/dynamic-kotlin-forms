@@ -1,4 +1,4 @@
-package com.cloud_evalutaion.ui.viewmodel
+package com.cloud_evalutaion.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

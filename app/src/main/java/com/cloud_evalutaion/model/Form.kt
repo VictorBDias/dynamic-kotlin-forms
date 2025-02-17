@@ -1,4 +1,4 @@
-package com.cloud_evalutaion.ui.model
+package com.cloud_evalutaion.model
 
 import com.cloud_evalutaion.data.model.FormField
 import com.cloud_evalutaion.data.model.FormSection

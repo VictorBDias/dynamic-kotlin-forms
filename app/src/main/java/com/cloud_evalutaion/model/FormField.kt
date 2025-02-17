@@ -1,6 +1,6 @@
 package com.cloud_evalutaion.data.model
 
-import com.cloud_evalutaion.ui.model.FieldOption
+import com.cloud_evalutaion.model.FieldOption
 
 data class FormField(
     val type: String,

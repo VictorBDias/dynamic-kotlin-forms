@@ -1,4 +1,4 @@
-package com.cloud_evalutaion.ui.forms
+package com.cloud_evalutaion.view
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.cloud_evalutaion.data.local.entities.FormEntryEntity
-import com.cloud_evalutaion.ui.viewmodel.FormEntriesViewModel
+import com.cloud_evalutaion.viewmodel.FormEntriesViewModel
 
 @Composable
 fun FormEntriesScreen(

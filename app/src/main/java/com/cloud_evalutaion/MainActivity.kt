@@ -10,9 +10,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.cloud_evalutaion.ui.forms.FormEntriesScreen
-import com.cloud_evalutaion.ui.forms.FormsScreen
-import com.cloud_evalutaion.ui.viewmodel.FormsViewModel
+import com.cloud_evalutaion.view.FormEntriesScreen
+import com.cloud_evalutaion.view.FormsScreen
+import com.cloud_evalutaion.viewmodel.FormsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

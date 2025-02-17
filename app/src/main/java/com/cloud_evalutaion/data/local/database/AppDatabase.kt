@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import com.cloud_evalutaion.data.local.dao.FieldDao
 import com.cloud_evalutaion.data.local.dao.FormDao
@@ -13,6 +14,20 @@ import com.cloud_evalutaion.data.local.entities.FieldEntity
 import com.cloud_evalutaion.data.local.entities.FormEntity
 import com.cloud_evalutaion.data.local.entities.FormEntryEntity
 import com.cloud_evalutaion.data.local.entities.SectionEntity
+import java.util.Date
+
+
+class DateConverter {
+    @TypeConverter
+    fun fromTimestamp(value: Long?): Date? {
+        return value?.let { Date(it) }
+    }
+
+    @TypeConverter
+    fun dateToTimestamp(date: Date?): Long? {
+        return date?.time
+    }
+}
 
 
 @Database(entities = [FormEntity::class, FieldEntity::class, FormEntryEntity::class, SectionEntity::class], version = 2)
