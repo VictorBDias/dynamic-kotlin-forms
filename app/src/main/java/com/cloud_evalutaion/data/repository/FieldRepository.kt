@@ -16,7 +16,4 @@ class FieldRepository @Inject constructor(
         fieldDao.addField(field)
     }
 
-    suspend fun deleteField(fieldId: String) {
-        fieldDao.deleteField(fieldId)
-    }
 }

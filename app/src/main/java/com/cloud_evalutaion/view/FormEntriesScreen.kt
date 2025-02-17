@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.cloud_evalutaion.data.local.entities.FormEntryEntity
 import com.cloud_evalutaion.viewmodel.FormEntriesViewModel
@@ -16,12 +17,13 @@ import com.cloud_evalutaion.viewmodel.FormEntriesViewModel
 @Composable
 fun FormEntriesScreen(
     formId: String,
-    viewModel: FormEntriesViewModel = viewModel()
+    viewModel: FormEntriesViewModel = hiltViewModel()
 ) {
     val formEntries by viewModel.getFormEntries(formId).collectAsState(initial = emptyList())
 
     Scaffold(
         topBar = { TopAppBar(title = { Text("Form Entries") }) },
+
         floatingActionButton = {
             FloatingActionButton(onClick = { viewModel.addFormEntry(formId) }) {
                 Icon(Icons.Default.Add, contentDescription = "Add Form Entry")

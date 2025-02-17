@@ -20,10 +20,6 @@ class FormRepository @Inject constructor(
         formDao.addForm(form)
     }
 
-    suspend fun deleteForm(formId: String) {
-        formDao.deleteForm(formId)
-    }
-
     suspend fun addField(field: FieldEntity) {
         fieldDao.addField(field)
     }

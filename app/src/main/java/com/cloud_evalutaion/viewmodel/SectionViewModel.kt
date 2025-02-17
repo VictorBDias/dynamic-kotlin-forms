@@ -23,10 +23,4 @@ class SectionViewModel @Inject constructor(
             repository.addSection(section)
         }
     }
-
-    fun deleteSection(sectionId: String) {
-        viewModelScope.launch {
-            repository.deleteSection(sectionId)
-        }
-    }
 }

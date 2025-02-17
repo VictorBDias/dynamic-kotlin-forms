@@ -1,5 +1,6 @@
 package com.cloud_evalutaion.view
 
+import androidx.compose.ui.graphics.Color
 import com.cloud_evalutaion.data.local.entities.FormEntity
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -25,7 +26,10 @@ fun FormsScreen(
     val forms by viewModel.forms.collectAsState()
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Forms") }) },
+        topBar = {      TopAppBar(
+            title = { Text("Forms", color = Color(0xFFDDDDDD)) },
+//            backgroundColor = Color(0xFF333333)
+        ) },
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
             LazyColumn(modifier = Modifier.fillMaxSize()) {

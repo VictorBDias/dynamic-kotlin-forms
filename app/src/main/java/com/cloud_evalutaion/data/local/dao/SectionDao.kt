@@ -12,7 +12,4 @@ interface SectionDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addSection(section: SectionEntity)
-
-    @Query("DELETE FROM section_entity WHERE id = :sectionId")
-    suspend fun deleteSection(sectionId: String)
 }

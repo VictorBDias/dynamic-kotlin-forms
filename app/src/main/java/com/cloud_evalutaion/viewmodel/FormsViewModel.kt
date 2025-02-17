@@ -38,12 +38,6 @@ class FormsViewModel @Inject constructor(
         }
     }
 
-    fun deleteForm(id: String) {
-        viewModelScope.launch {
-            repository.deleteForm(id)
-        }
-    }
-
     fun loadFormsFromJson(context: Context) {
         viewModelScope.launch {
             val formFiles = listOf("200-form.json", "all-fields.json")

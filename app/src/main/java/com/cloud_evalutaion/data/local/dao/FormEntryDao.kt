@@ -11,7 +11,4 @@ interface FormEntryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addFormEntry(entry: FormEntryEntity)
-
-    @Query("DELETE FROM form_entry_entity WHERE id = :entryId")
-    suspend fun deleteFormEntry(entryId: String)
 }

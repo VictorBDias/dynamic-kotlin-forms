@@ -16,9 +16,6 @@ interface FormDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addForm(form: FormEntity)
 
-    @Query("DELETE FROM form_entity WHERE id = :formId")
-    suspend fun deleteForm(formId: String)
-
     @Query("SELECT * FROM form_entity WHERE title = :title LIMIT 1")
     suspend fun getFormByTitle(title: String): FormEntity?
 
