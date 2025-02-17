@@ -1,8 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.org.jetbrains.kotlin.android)
     alias(libs.plugins.hilt.android)
     id("com.google.devtools.ksp")
+    alias(libs.plugins.compose.compiler)
+    id("kotlin-kapt")
 }
 
 android {

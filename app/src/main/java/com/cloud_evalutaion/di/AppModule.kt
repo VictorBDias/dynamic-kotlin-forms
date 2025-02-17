@@ -2,12 +2,16 @@ package com.cloud_evalutaion.di
 
 import android.content.Context
 import androidx.room.Room
-import com.cloud_evalutaion.data.local.database.AppDatabase
+import com.cloud_evalutaion.data.local.dao.FieldDao
 import com.cloud_evalutaion.data.local.dao.FormDao
+import com.cloud_evalutaion.data.local.dao.FormEntryDao
+import com.cloud_evalutaion.data.local.database.AppDatabase
+import com.cloud_evalutaion.data.repository.FormRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Singleton
 
 @Module
@@ -16,16 +20,36 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(context: Context): AppDatabase {
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(
-            context.applicationContext,
+            context,
             AppDatabase::class.java,
-            "form_database"
-        ).build()
+            "app_database"
+        ).fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
+    @Singleton
     fun provideFormDao(database: AppDatabase): FormDao {
         return database.formDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFieldDao(database: AppDatabase): FieldDao {
+        return database.fieldDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFormEntryDao(database: AppDatabase): FormEntryDao {
+        return database.formEntryDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideFormRepository(formDao: FormDao): FormRepository {
+        return FormRepository(formDao)
     }
 }
