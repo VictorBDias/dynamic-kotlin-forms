@@ -10,7 +10,7 @@ interface FieldDao {
     fun getFieldsByFormId(formId: String): Flow<List<FieldEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertField(field: FieldEntity)
+    suspend fun addField(field: FieldEntity)
 
     @Query("DELETE FROM field_entity WHERE id = :fieldId")
     suspend fun deleteField(fieldId: String)

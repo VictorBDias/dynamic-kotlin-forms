@@ -18,15 +18,9 @@ class FieldViewModel @Inject constructor(
         return fieldDao.getFieldsByFormId(formId)
     }
 
-    fun insertField(field: FieldEntity) {
+    fun addField(field: FieldEntity) {
         viewModelScope.launch {
-            fieldDao.insertField(field)
-        }
-    }
-
-    fun deleteField(fieldId: String) {
-        viewModelScope.launch {
-            fieldDao.deleteField(fieldId)
+            fieldDao.addField(field)
         }
     }
 }

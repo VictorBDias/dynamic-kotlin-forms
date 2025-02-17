@@ -1,4 +1,4 @@
-package com.cloud_evalutaion.ui.forms
+package com.cloud_evalutaion.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

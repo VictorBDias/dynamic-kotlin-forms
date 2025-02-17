@@ -7,6 +7,8 @@ import com.cloud_evalutaion.data.local.entities.FormEntryEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import java.util.Date
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,15 +20,17 @@ class FormEntriesViewModel @Inject constructor(
         return formEntryDao.getFormEntries(formId)
     }
 
-    fun insertFormEntry(entry: FormEntryEntity) {
+    fun addFormEntry(formId: String) {
         viewModelScope.launch {
-            formEntryDao.insertFormEntry(entry)
+            val newEntry = FormEntryEntity(
+                id = UUID.randomUUID().toString(),
+                formId = formId,
+                timestamp = Date(),
+                data = "{}"
+            )
+            formEntryDao.addFormEntry(newEntry)
         }
     }
 
-    fun deleteFormEntry(entryId: String) {
-        viewModelScope.launch {
-            formEntryDao.deleteFormEntry(entryId)
-        }
-    }
+
 }
