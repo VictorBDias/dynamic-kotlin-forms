@@ -26,7 +26,6 @@ class MainActivity : ComponentActivity() {
 
         lifecycleScope.launch {
             formsViewModel.loadFormsFromJson(this@MainActivity)
-            formsViewModel.logForms()
         }
 
         setContent {

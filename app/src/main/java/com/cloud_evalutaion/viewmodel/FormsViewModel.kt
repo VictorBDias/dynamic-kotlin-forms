@@ -101,22 +101,4 @@ class FormsViewModel @Inject constructor(
             }
         }
     }
-
-
-    fun logForms() {
-    viewModelScope.launch {
-        val formList = repository.allForms.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Lazily,
-            initialValue = emptyList()
-        ).value
-
-        if (formList.isEmpty()) {
-            println("📢 No forms found in the database!")
-        } else {
-            println("✅ Forms in Room DB:")
-            formList.forEach { println("📝 ${it.title}") }
-        }
-    }
-}
 }
