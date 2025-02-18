@@ -10,6 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.cloud_evalutaion.view.FormDetailScreen
 import com.cloud_evalutaion.view.FormEntriesScreen
 import com.cloud_evalutaion.view.FormsScreen
 import com.cloud_evalutaion.viewmodel.FormsViewModel
@@ -42,7 +43,12 @@ fun MyApp() {
         composable("forms") { FormsScreen(navController = navController) }
         composable("form_entries/{formId}") { backStackEntry ->
             val formId = backStackEntry.arguments?.getString("formId") ?: return@composable
-            FormEntriesScreen(formId = formId)
+            FormEntriesScreen(formId = formId, navController = navController)
+        }
+        composable("form_detail/{formId}/{entryId}") { backStackEntry ->
+            val formId = backStackEntry.arguments?.getString("formId") ?: return@composable
+            val entryId = backStackEntry.arguments?.getString("entryId") ?: return@composable
+            FormDetailScreen(navController, formId, entryId)
         }
     }
 }

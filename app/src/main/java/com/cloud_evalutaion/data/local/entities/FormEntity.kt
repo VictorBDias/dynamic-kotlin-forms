@@ -6,7 +6,7 @@ import java.util.*
 
 @Entity(tableName = "form_entity")
 data class FormEntity(
-    @PrimaryKey val id: String = UUID.randomUUID().toString(),  // Unique ID
+    @PrimaryKey val id: String = UUID.randomUUID().toString(),
     val title: String,
     val timestamp: Date
 )

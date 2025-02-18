@@ -1,4 +1,4 @@
-package com.cloud_evalutaion.data.model
+package com.cloud_evalutaion.model
 
 data class FormSection(
     val title: String,

@@ -1,6 +1,4 @@
-package com.cloud_evalutaion.data.model
-
-import com.cloud_evalutaion.model.FieldOption
+package com.cloud_evalutaion.model
 
 data class FormField(
     val type: String,
@@ -8,6 +6,7 @@ data class FormField(
     val name: String,
     val required: Boolean,
     val uuid: String,
+    val index: Int,
     val options: List<FieldOption>? = null
 ) {
     val normalizedType: String
