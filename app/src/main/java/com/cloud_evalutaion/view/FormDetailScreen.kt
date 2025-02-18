@@ -9,13 +9,39 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.cloud_evalutaion.components.FieldInput
 import com.cloud_evalutaion.data.local.entities.FieldEntity
 import com.cloud_evalutaion.model.FormField
+import com.cloud_evalutaion.utils.WebViewManager
 import com.cloud_evalutaion.viewmodel.FormDetailViewModel
+
+@Composable
+fun HtmlWebView(htmlContent: String, modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    val webViewManager = remember { WebViewManager(context) }
+
+    DisposableEffect(Unit) {
+        webViewManager.loadContent(htmlContent)
+
+        onDispose {
+            webViewManager.cleanUp()
+        }
+    }
+
+    AndroidView(
+        factory = { webViewManager.webView },
+        modifier = modifier.fillMaxWidth()
+    )
+}
+
+
+
+
 
 @Composable
 fun FormDetailScreen(
@@ -24,7 +50,6 @@ fun FormDetailScreen(
     entryId: String,
     viewModel: FormDetailViewModel = hiltViewModel()
 ) {
-    // Fetch form and form entry data
     LaunchedEffect(formId, entryId) {
         viewModel.loadForm(formId)
         viewModel.loadFormEntry(entryId)
@@ -33,7 +58,6 @@ fun FormDetailScreen(
     val form by viewModel.form.collectAsState()
     val formEntry by viewModel.formEntry.collectAsState()
 
-    // Show loading state if data is not yet available
     if (form == null || formEntry == null) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
@@ -41,7 +65,6 @@ fun FormDetailScreen(
         return
     }
 
-    // Convert FormField to FieldEntity
     fun FormField.toFieldEntity(formId: String): FieldEntity {
         return FieldEntity(
             id = this.uuid,
@@ -84,7 +107,9 @@ fun FormDetailScreen(
             LazyColumn(modifier = Modifier.fillMaxSize().padding(16.dp)) {
                 form?.sections?.let { sections ->
                     items(sections) { section ->
-                        Text(text = section.title, style = MaterialTheme.typography.h6)
+                        HtmlWebView(htmlContent = section.title, modifier = Modifier.padding(bottom = 8.dp))
+
+
 
                         val sectionFields = form?.fields?.filter { it.index in section.from..section.to }
                             ?.sortedBy { it.index } ?: emptyList()

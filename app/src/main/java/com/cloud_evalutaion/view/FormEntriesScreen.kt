@@ -70,8 +70,7 @@ fun FormEntryItem(entry: FormEntryEntity, navController: NavController) {
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = "Entry ID: ${entry.id}", style = MaterialTheme.typography.h6)
-            Text(text = "Form ID: ${entry.formId}", style = MaterialTheme.typography.body1)
-            Text(text = "Data: ${entry.data}", style = MaterialTheme.typography.body2)
+            Text(text = "${entry.timestamp}", style = MaterialTheme.typography.body1)
         }
     }
 }
