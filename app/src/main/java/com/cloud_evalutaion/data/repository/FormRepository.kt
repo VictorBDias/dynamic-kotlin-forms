@@ -31,4 +31,16 @@ class FormRepository @Inject constructor(
     suspend fun formExists(title: String): Boolean {
         return formDao.getFormByTitle(title) != null
     }
+
+    suspend fun getFormById(formId: String): FormEntity? {
+        return formDao.getFormById(formId)
+    }
+
+    fun getFieldsByFormId(formId: String): Flow<List<FieldEntity>> {
+        return fieldDao.getFieldsByFormId(formId)
+    }
+
+    fun getSectionsByFormId(formId: String): Flow<List<SectionEntity>> {
+        return sectionDao.getSectionsByFormId(formId)
+    }
 }

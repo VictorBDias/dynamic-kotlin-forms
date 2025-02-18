@@ -22,4 +22,8 @@ interface FormDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addField(field: FieldEntity)
 
+    @Query("SELECT * FROM form_entity WHERE id = :formId LIMIT 1")
+    suspend fun getFormById(formId: String): FormEntity?
+
+
 }

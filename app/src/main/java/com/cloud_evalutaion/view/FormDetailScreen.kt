@@ -7,27 +7,41 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.cloud_evalutaion.components.FieldInput
 import com.cloud_evalutaion.data.local.entities.FieldEntity
-import com.cloud_evalutaion.data.local.entities.FormEntryEntity
-import com.cloud_evalutaion.model.Form
 import com.cloud_evalutaion.model.FormField
 import com.cloud_evalutaion.viewmodel.FormDetailViewModel
 
 @Composable
 fun FormDetailScreen(
     navController: NavController,
-    form: Form,
-    formEntry: FormEntryEntity,
-    viewModel: FormDetailViewModel
+    formId: String,
+    entryId: String,
+    viewModel: FormDetailViewModel = hiltViewModel()
 ) {
-    LaunchedEffect(formEntry) {
-        viewModel.loadExistingData(formEntry)
+    // Fetch form and form entry data
+    LaunchedEffect(formId, entryId) {
+        viewModel.loadForm(formId)
+        viewModel.loadFormEntry(entryId)
     }
 
+    val form by viewModel.form.collectAsState()
+    val formEntry by viewModel.formEntry.collectAsState()
+
+    // Show loading state if data is not yet available
+    if (form == null || formEntry == null) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            CircularProgressIndicator()
+        }
+        return
+    }
+
+    // Convert FormField to FieldEntity
     fun FormField.toFieldEntity(formId: String): FieldEntity {
         return FieldEntity(
             id = this.uuid,
@@ -51,11 +65,15 @@ fun FormDetailScreen(
                     }
                 },
                 actions = {
-                    Button(onClick = { viewModel.saveEntry(formEntry, {
-                        navController.popBackStack()
-                    }, { errorMessage ->
-                        println("❌ Error: $errorMessage")
-                    }) }) {
+                    Button(onClick = {
+                        formEntry?.let { entry ->
+                            viewModel.saveEntry(entry, {
+                                navController.popBackStack()
+                            }, { errorMessage ->
+                                println("❌ Error: $errorMessage")
+                            })
+                        }
+                    }) {
                         Text("Save")
                     }
                 }
@@ -64,15 +82,17 @@ fun FormDetailScreen(
     ) { paddingValues ->
         Box(modifier = Modifier.padding(paddingValues)) {
             LazyColumn(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-                items(form.sections ?: emptyList()) { section ->
-                    Text(text = section.title, style = MaterialTheme.typography.h6)
+                form?.sections?.let { sections ->
+                    items(sections) { section ->
+                        Text(text = section.title, style = MaterialTheme.typography.h6)
 
-                    val sectionFields = form.fields.filter { it.index in section.from..section.to }
-                        .sortedBy { it.index } ?: emptyList()
+                        val sectionFields = form?.fields?.filter { it.index in section.from..section.to }
+                            ?.sortedBy { it.index } ?: emptyList()
 
-                    sectionFields.forEach { field ->
-                        val fieldEntity = field.toFieldEntity(formEntry.formId)
-                        FieldInput(fieldEntity, viewModel)
+                        sectionFields.forEach { field ->
+                            val fieldEntity = field.toFieldEntity(formId)
+                            FieldInput(fieldEntity, viewModel)
+                        }
                     }
                 }
             }

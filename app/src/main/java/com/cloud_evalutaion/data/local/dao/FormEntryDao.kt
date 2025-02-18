@@ -11,4 +11,7 @@ interface FormEntryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addFormEntry(entry: FormEntryEntity)
+
+    @Query("SELECT * FROM form_entry_entity WHERE id = :entryId LIMIT 1")
+    suspend fun getFormEntryById(entryId: String): FormEntryEntity?
 }
