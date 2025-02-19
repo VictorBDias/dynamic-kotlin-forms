@@ -36,9 +36,9 @@ xed .
 
 # Screenshots
 <div style="display: flex; justify-content: space-between;">
-  <img src="dynamickotlinforms/app/src/main/assets/Screenshot1.png" width="30%" />
-  <img src="dynamickotlinforms/app/src/main/assets/Screenshot2.png" width="30%" />
-  <img src="dynamickotlinforms/app/src/main/assets/Screenshot3.png" width="30%" />
+  <img src="src/main/assets/Screenshot1.png" width="30%" />
+  <img src="app/src/main/assets/Screenshot2.png" width="30%" />
+  <img src="main/assets/Screenshot3.png" width="30%" />
   <img src="dynamickotlinforms/app/src/main/assets/Screenshot4.png" width="30%" />
   <img src="dynamickotlinforms/app/src/main/assets/Screenshot5.png" width="30%" />
 
