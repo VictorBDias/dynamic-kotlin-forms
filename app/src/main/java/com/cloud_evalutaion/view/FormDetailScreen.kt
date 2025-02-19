@@ -39,10 +39,6 @@ fun HtmlWebView(htmlContent: String, modifier: Modifier = Modifier) {
     )
 }
 
-
-
-
-
 @Composable
 fun FormDetailScreen(
     navController: NavController,

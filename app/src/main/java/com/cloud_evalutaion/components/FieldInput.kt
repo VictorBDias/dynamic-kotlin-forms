@@ -21,6 +21,29 @@ import androidx.compose.runtime.remember
 import com.cloud_evalutaion.data.local.entities.FieldEntity
 import com.cloud_evalutaion.viewmodel.FormDetailViewModel
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.viewinterop.AndroidView
+import com.cloud_evalutaion.utils.WebViewManager
+
+
+@Composable
+fun HtmlWebView(htmlContent: String, modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    val webViewManager = remember { WebViewManager(context) }
+
+    DisposableEffect(Unit) {
+        webViewManager.loadContent(htmlContent)
+
+        onDispose {
+            webViewManager.cleanUp()
+        }
+    }
+
+    AndroidView(
+        factory = { webViewManager.webView },
+        modifier = modifier.fillMaxWidth()
+    )
+}
 
 @Composable
 fun FieldInput(field: FieldEntity, viewModel: FormDetailViewModel) {
@@ -70,8 +93,11 @@ fun FieldInput(field: FieldEntity, viewModel: FormDetailViewModel) {
             }
 
             "description" -> {
-                Text(text = field.label, modifier = Modifier.padding(vertical = 8.dp))
                 var value by remember { mutableStateOf(viewModel.formData[field.id] ?: "") }
+                com.cloud_evalutaion.view.HtmlWebView(
+                    htmlContent = field.label,
+                )
+
                 TextField(
                     value = value,
                     onValueChange = {
