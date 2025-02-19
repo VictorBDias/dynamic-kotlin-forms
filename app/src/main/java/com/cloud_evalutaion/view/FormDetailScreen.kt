@@ -72,7 +72,7 @@ fun FormDetailScreen(
             name = this.name,
             type = this.normalizedType,
             required = this.required,
-            options = this.options?.joinToString(",") { it.value },
+            options = this.options,
             index = this.index,
             formId = formId
         )

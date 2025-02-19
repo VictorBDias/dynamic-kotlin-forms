@@ -66,8 +66,7 @@ class FormsViewModel @Inject constructor(
                                 name = field.name,
                                 type = field.type,
                                 required = field.required ?: false,
-                                options = field.options?.joinToString(",") { it.value },
-                                index = index,
+                                options = field.options,                                index = index,
                                 formId = formEntity.id
                             )
                             repository.addField(fieldEntity)

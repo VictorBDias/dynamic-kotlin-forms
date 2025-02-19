@@ -56,13 +56,13 @@ fun FieldInput(field: FieldEntity, viewModel: FormDetailViewModel) {
                         Text(selectedOption.ifEmpty { "Select an option" })
                     }
                     DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                        field.options?.split(",")?.forEach { option ->
+                        field.options?.forEach { option ->
                             DropdownMenuItem(onClick = {
-                                selectedOption = option
-                                viewModel.formData[field.id] = option
+                                selectedOption = option.label
+                                viewModel.formData[field.id] = option.label
                                 expanded = false
                             }) {
-                                Text(option)
+                                Text(option.label)
                             }
                         }
                     }

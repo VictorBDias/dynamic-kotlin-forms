@@ -60,8 +60,8 @@ class FormDetailViewModel @Inject constructor(
                             required = field.required,
                             uuid = field.id,
                             index = field.index,
-                            options = field.options?.split(",")?.map { option ->
-                                FieldOption(label = option, value = option)
+                            options = field.options?.map { option ->
+                                FieldOption(label = option.label, value = option.value)
                             }
                         )
                     },

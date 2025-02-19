@@ -31,7 +31,7 @@ class DateConverter {
 
 
 @Database(entities = [FormEntity::class, FieldEntity::class, FormEntryEntity::class, SectionEntity::class], version = 2)
-@TypeConverters(DateConverter::class)
+@TypeConverters(DateConverter::class, FieldOptionConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun formDao(): FormDao
     abstract fun fieldDao(): FieldDao
