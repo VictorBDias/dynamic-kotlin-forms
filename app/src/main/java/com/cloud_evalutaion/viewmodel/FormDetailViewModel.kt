@@ -86,8 +86,25 @@ class FormDetailViewModel @Inject constructor(
         }
     }
 
-    fun saveEntry(formEntry: FormEntryEntity, onSuccess: () -> Unit, onError: (String) -> Unit) {
-        val missingFields = formData.filterValues { it.isEmpty() }.keys
+    fun saveEntry(
+        formEntry: FormEntryEntity,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val sections = form.value?.sections ?: emptyList()
+
+        val requiredFields = form.value?.fields
+            ?.filter { field ->
+                sections.any { section -> field.index in section.from..section.to }
+            }
+            ?.filter { it.required }
+            ?.map { it.uuid to it.label }
+            ?: emptyList()
+
+        val missingFields = requiredFields
+            .filter { (uuid, _) -> formData[uuid].isNullOrEmpty() }
+            .map { (_, label) -> label }
+
         if (missingFields.isNotEmpty()) {
             onError("Please fill in the required fields: ${missingFields.joinToString(", ")}")
             return
@@ -103,4 +120,6 @@ class FormDetailViewModel @Inject constructor(
             onSuccess()
         }
     }
+
+
 }

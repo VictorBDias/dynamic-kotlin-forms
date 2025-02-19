@@ -54,6 +54,9 @@ fun FormDetailScreen(
     val form by viewModel.form.collectAsState()
     val formEntry by viewModel.formEntry.collectAsState()
 
+    var showAlert by remember { mutableStateOf(false) }
+    var alertMessage by remember { mutableStateOf("") }
+
     if (form == null || formEntry == null) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
             CircularProgressIndicator()
@@ -88,13 +91,16 @@ fun FormDetailScreen(
                         formEntry?.let { entry ->
                             viewModel.saveEntry(entry, {
                                 navController.popBackStack()
-                            }, { errorMessage ->
-                                println("❌ Error: $errorMessage")
+                            }, { message ->
+                                alertMessage = message
+                                showAlert = true
                             })
                         }
                     }) {
                         Text("Save")
                     }
+
+
                 }
             )
         }
@@ -104,8 +110,6 @@ fun FormDetailScreen(
                 form?.sections?.let { sections ->
                     items(sections) { section ->
                         HtmlWebView(htmlContent = section.title, modifier = Modifier.padding(bottom = 8.dp))
-
-
 
                         val sectionFields = form?.fields?.filter { it.index in section.from..section.to }
                             ?.sortedBy { it.index } ?: emptyList()
@@ -118,5 +122,18 @@ fun FormDetailScreen(
                 }
             }
         }
+    }
+
+    if (showAlert) {
+        AlertDialog(
+            onDismissRequest = { showAlert = false },
+            title = { Text("⚠️ Missing Required Fields") },
+            text = { Text(alertMessage) },
+            confirmButton = {
+                Button(onClick = { showAlert = false }) {
+                    Text("OK")
+                }
+            }
+        )
     }
 }

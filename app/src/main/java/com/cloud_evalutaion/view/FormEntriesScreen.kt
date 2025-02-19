@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -27,11 +28,17 @@ fun FormEntriesScreen(
         topBar = {
             TopAppBar(
                 title = { Text("Form Entries") },
+                navigationIcon = {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                    }
+                },
             )
         },
         floatingActionButton = {
             FloatingActionButton(onClick = { viewModel.addFormEntry(formId) }) {
                 Icon(Icons.Default.Add, contentDescription = "Add Form Entry")
+
             }
         }
     ) { paddingValues ->
