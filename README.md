@@ -30,7 +30,7 @@ Open a terminal and run:
 ```bash
 git clone git@github.com:VictorBDias/dynamic-kotlin-forms.git
 cd dynamic-swift-forms
-xed .
+studio .
 ```
 - Run the project using Shift + F10 or android studio play button.
 
